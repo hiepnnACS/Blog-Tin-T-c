@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $table = 'categories';
+
     protected $fillable = [
         'name',
         'parent_id',
@@ -15,7 +17,10 @@ class Category extends Model
 
     public function posts()
     {
-        $this->hasMany('App\Post');
+        return $this->hasMany(Post::class, 'cate_id', 'id');
+
+        // lấy được list post theo cate rồi
+        
     }
     
 }

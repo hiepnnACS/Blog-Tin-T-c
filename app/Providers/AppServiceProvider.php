@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+// use Illuminate\Support\Facades\View;
+use App\Category;
+use Illuminate\Contracts\View\Factory; 
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('App\Http\ViewComposer');
     }
 
     /**
@@ -21,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Factory $view)
     {
-        //
+        $view->composer('*', 'App\Http\ViewComposer');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    protected $table = 'comments';
     protected $fillable = [
         'content',
         'post_id',
@@ -14,11 +15,11 @@ class Comment extends Model
 
     public function post()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

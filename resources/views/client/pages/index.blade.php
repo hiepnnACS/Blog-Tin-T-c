@@ -6,6 +6,6 @@
 
 @section('content')
 
-    @include('client.layouts.content')
+    {{-- @include('client.layouts.content') --}}
     
 @endsection
