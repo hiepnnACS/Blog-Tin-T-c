@@ -12,9 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.pages.index');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// use App\User;
+// Route::get('/insert', function() {
+//     User::create([
+//         'name' => 'hiep',
+//         'email' => 'hiepg198@gmail.com',
+//         'password' => Hash::make('123456'),
+//     ]);
+// });

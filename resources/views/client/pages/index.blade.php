@@ -1,7 +1,7 @@
 @extends('client.master')
 
 @section('title')
-    Trang chủ
+
 @endsection
 
 @section('content')
