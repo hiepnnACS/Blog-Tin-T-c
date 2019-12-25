@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Str;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $cate = Category::paginate(10);
+
+        return view('admin.pages.cate.list', compact('cate'));
     }
 
     /**
@@ -24,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.cate.add');
     }
 
     /**
@@ -33,18 +37,26 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $is_menu = $request->is_menu ?? '0';
+
+        Category::create([
+            'name' => $request->category,
+            'slug' => Str::slug($request->category),
+            'is_menu' => $is_menu
+        ]);
+
+        return redirect()->route('cate.index')->with('success' , 'Add Category Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
     }
@@ -52,34 +64,59 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $cate = Category::find($id);
+
+        if(!$cate) {
+            return '404';
+        }
+
+        return view('admin.pages.cate.edit', compact('cate'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $is_menu = $request->is_menu ?? '0';
+        $cate = Category::find($id);
+        
+        if(!$cate) {
+            return '404';
+        }
+        $cate->update([
+            'name' => $request->category,
+            'slug' => Str::slug($request->category, '-'),
+            'is_menu' => $is_menu,
+        ]);
+
+        return redirect()->route('cate.index')->with('success' , 'Ban da sua thanh cong');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $cate = Category::find($id);
+     
+        if(!$cate) {    
+            return '404';
+        }
+        $cate->delete();
+
+        return back()->with('success', 'Ban da xoa thanh cong');
     }
 }

@@ -86,7 +86,6 @@
                             <div class="media-body">
                                 <h4 class="media-heading user_name">{{ $cm->user->name }}<small>5 days ago</small></h4>
                                 <p>{{ $cm->content }}</p>
-                                <a href="#" class="btn btn-primary btn-sm">Reply</a>
                             </div>
                         </div>
                     @endforeach
@@ -102,11 +101,12 @@
         <h4 class="small-title">Leave a Reply</h4>
         <div class="row">
             <div class="col-lg-12">
-                <form class="form-wrapper">
-                    <input type="text" class="form-control" placeholder="Your name">
-                    <input type="text" class="form-control" placeholder="Email address">
-                    <input type="text" class="form-control" placeholder="Website">
-                    <textarea class="form-control" placeholder="Your comment"></textarea>
+                @if($errors->count() > 0)
+                        <p class="alert alert-danger">{{ $errors->first('comment') }}</p>
+                @endif
+                <form class="form-wrapper" action="{{ route('post.comment', $post->id) }}"" method="post">
+                    @csrf
+                    <textarea class="form-control" name="comment" placeholder="Your comment"></textarea>
                     <button type="submit" class="btn btn-primary">Submit Comment</button>
                 </form>
             </div>

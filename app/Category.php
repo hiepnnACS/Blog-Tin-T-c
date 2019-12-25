@@ -10,17 +10,16 @@ class Category extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'parent_id',
         'lever',
-        'deleted_at'
+        'deleted_at',
+        'is_menu'
     ];
 
     public function posts()
     {
         return $this->hasMany(Post::class, 'cate_id', 'id');
-
-        // lấy được list post theo cate rồi
-        
     }
     
 }

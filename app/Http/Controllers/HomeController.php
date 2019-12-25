@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use App\Post;
 use App\Category;
 use App\Comment;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -26,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data_product = Post::with('category', 'user')->paginate(10);
+        $data_product = Post::latest()->with('category')->paginate(10);
         
         return view('home', compact('data_product'));
     }
@@ -36,14 +38,34 @@ class HomeController extends Controller
         $post = Post::with('comments.user')->where('slug', $slugPost)->first();
     
         return view('client.pages.detailPost', compact('post'));
-
     }
 
     public function listPostCategory($slugCate) 
     {
-        $listPost = Category::where('slug', $slugCate)->with('posts')->get();
+        $listPost = Post::with('category', 'user')->whereHas('category', function ($query) use ($slugCate) {
+            $query->where('categories.slug','like', $slugCate);
+        })->get();
 
-        dd($listPost);
+        return view('client.pages.list-post-category', compact('listPost'));
+    }
+
+    public function Comment(CommentRequest $request, $idPost)
+    {
+        $id_user = Auth::id();
+
+        $content = $request->comment;
+
+        Comment::create([
+            'content' => $content,
+            'user_id' => $id_user,
+            'post_id' => $idPost
+        ]);
+
+        return back();
+        
+
+
+
     }
 
     
