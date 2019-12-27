@@ -34,7 +34,7 @@
     </div><!-- end title -->
 
     <div class="single-post-media">
-        <img src="{{ asset('client/upload/tech_menu_08.jpg') }}" alt="" class="img-fluid">
+        <img src="{{ asset('img/upload/post/' . $post->image) }}" alt="" class="img-thumail" height="400">
     </div><!-- end media -->
 
     <div class="blog-content">  

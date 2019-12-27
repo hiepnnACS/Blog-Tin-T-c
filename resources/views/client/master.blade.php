@@ -40,9 +40,9 @@
         </header><!-- end market-header -->
 
         {{-- highlight Post --}}
-        <section class="section first-section">
+        {{-- <section class="section first-section"> --}}
             @yield('highlight-post')
-        </section>
+        {{-- </section> --}}
 
         <section class="section">
             <div class="container">

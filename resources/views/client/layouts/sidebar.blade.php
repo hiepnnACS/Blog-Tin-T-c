@@ -3,7 +3,7 @@
         <div class="widget">
             <div class="banner-spot clearfix">
                 <div class="banner-img">
-                    <img src="{{ asset('client/upload/banner_07.jpg') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('img/upload/banner/banner_07.jpg') }}" alt="" class="img-fluid">
                 </div><!-- end banner-img -->
             </div><!-- end banner -->
         </div><!-- end widget -->

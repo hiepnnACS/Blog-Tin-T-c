@@ -1,9 +1,9 @@
 <section class="section first-section">
-    <div class="container-fluid">
+    <div class="container-thumnail">
         <div class="masonry-blog clearfix">
             <div class="first-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('client/upload/tech_01.jpg') }}" alt="" class="img-fluid">
+                     <img src="{{ asset('img/upload/banner/banner1.jpg') }}" width="788" height="443" alt="" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
@@ -19,7 +19,7 @@
 
             <div class="second-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('client/upload/tech_02.jp') }}g" alt="" class="img-fluid">
+                     <img src="{{ asset('img/upload/banner/banner-2.png') }}" alt="" width="394" height="449" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
@@ -35,7 +35,7 @@
 
             <div class="last-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('client/upload/tech_03.jpg') }}" alt="" class="img-fluid">
+                     <img src="{{ asset('img/upload/banner/banner-3.png') }}" width="394" height="449" alt="" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">

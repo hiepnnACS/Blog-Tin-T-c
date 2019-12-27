@@ -28,7 +28,7 @@
                 <div class="blog-box">
                     <div class="post-media">
                         <a href="{{ route('post.detail', $post->url_slug) }}" title="">
-                            <img src="{{ asset('client/upload/tech_menu_20.jpg') }}" alt="" class="img-fluid">
+                            <img height="500" src="{{ asset('img/upload/post/'. $post->image) }}" alt="" class="img-thumnail">
                             <div class="hovereffect">
                                 <span class="videohover"></span>
                             </div>
@@ -63,18 +63,7 @@
     <hr class="invis">
 
     <div class="row">
-        <div class="col-md-12">
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div><!-- end col -->
+        {{ $listPost->links() }}
     </div><!-- end row -->            
     
 @endsection

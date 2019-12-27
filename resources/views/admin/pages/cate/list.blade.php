@@ -43,6 +43,9 @@
             @endforeach
 
           </table>
+          <div>
+            {{ $cate->links() }}
+          </div>
         </div>
         <!-- /.card-body -->
       </div>

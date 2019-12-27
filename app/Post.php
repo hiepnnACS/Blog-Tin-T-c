@@ -12,13 +12,11 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'short_desc', 
-        'image', 
-        'highlight', 
-        'views', 
-        'status', 
+        'image',
         'cate_id',
-        'user_id'
+        'user_id',
+        'publish_date',
+        'slug',
     ];
     protected $appends = ['url_slug'];
 
@@ -47,6 +45,6 @@ class Post extends Model
 
     public function getContentLimitAttribute()
     {
-        return Str::limit($this->content, 200);
-    }
+        return Str::limit(strip_tags($this->content), 200);
+    }   
 }

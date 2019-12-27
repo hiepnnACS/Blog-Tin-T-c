@@ -13,7 +13,7 @@ class ViewComposer {
    */
   public function __construct()
   {
-    $this->data_cate = Category::all();
+    $this->data_cate = Category::where('is_menu', 1)->get();
     // dd($this->data_cate);
   }
 
