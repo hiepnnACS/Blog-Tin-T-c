@@ -28,8 +28,11 @@
               <th>Hiển Thị</th>
               <th>Action</th>
             </thead>
+            
             @foreach($post as $p)
+            
                 <tr >
+                  <input type="hidden" name="id" id="url{{ $p->id }}" value="{{ $p->id }}">
                     <td>{{ $loop->index + 1 }}
                     <td class="td-title">{{ $p->title }}
                     <td class="td-content">{!! Str::limit($p->content, 200) !!}</td>
@@ -42,17 +45,12 @@
                              <i class="fa fa-edit"></i>
                         </a>
                         |
-                        <a href="{{ route('post.edit', $p->id) }} ">
+                        <a href="{{ route('post.destroy', $p->id) }}" data-method="delete" class="jquery-postback">
                              <i class="fa fa-trash"></i>
                         </a>
-                        
-                        {{-- <form class="form-" action="{{ route('post.destroy', $p->id) }}" method="post">
-                          @csrf
-                          @method('delete')
-                          <input class="btn btn-danger" value="Delete" type="submit" />
-                        </form> --}}
                     </td>
                 </tr>
+
             @endforeach
 
           </table>
@@ -66,4 +64,28 @@
     </div>
   </div><!-- /.row -->
 </div><!-- /.container-fluid -->
+@endsection
+
+@section('js_post')
+  <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).on('click', 'a.jquery-postback', function(e) {
+        e.preventDefault(); // does not go through with the link.
+        
+        var $this = $(this);
+        var parent = $(this).parent();
+        $.post({
+            type: $this.data('method'),
+            url: $this.attr('href')
+        }).done(function (data) {
+            alert('success');
+            parent.closest("tr").remove();
+            console.log(data);
+        });
+    });
+  </script>
 @endsection

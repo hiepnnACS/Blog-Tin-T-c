@@ -1,6 +1,7 @@
 @extends('admin.master')
 
 @section('content')
+
 <div class="row mt-3">
 <div class="col-md-12">
     <!-- general form elements -->
@@ -16,12 +17,21 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
             <input value="{{ old('title') }}" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter...">
-            <span class="text-danger">{{ $errors->first('title') }}</span>
+
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Content</label>
             <span class="text-danger"></span>
-            <textarea  name=text id="text" cols="30" rows="10">{{ old('text') }}</textarea>
+            <textarea  name=content id="text" cols="30" rows="10">{{ old('text') }}</textarea>
+
+            @error('content')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
           </div>
           <div class="form-group">
             <label>Danh Muc</label>
@@ -56,6 +66,7 @@
     <!-- /.card -->
 </div>
 </div>
+
 @endsection
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

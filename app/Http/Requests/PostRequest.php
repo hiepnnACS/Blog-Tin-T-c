@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Validator;
 
 class PostRequest extends FormRequest
 {
@@ -30,10 +29,11 @@ class PostRequest extends FormRequest
                 "required",
                 "min:2",
                 "max:255",
-                Rule::unique('posts')->ignore($this->post),
+                Rule::unique('posts')->ignore($this->id),
             ],
-            'text' => 'required|min:2',
+            'content' => 'required|min:2',
             'image' => [
+                "nullable",
                 "image",
                 "mimes:jpeg,png,jpg,gif,svg",
                 "max:2048"

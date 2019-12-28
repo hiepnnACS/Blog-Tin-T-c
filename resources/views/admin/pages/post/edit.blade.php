@@ -13,23 +13,37 @@
       <form role="form" action="{{ route('post.update', $post->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('put')
+        <input type="hidden" name="id" value="{{ $post->id }}">
         <div class="card-body">
           <div class="form-group">
+
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
             <label for="exampleInputEmail1">Title</label>
             <input value="{{ $post->title }}" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter...">
-            <span class="text-danger">{{ $errors->first('title') }}</span>
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Content</label>
             <span class="text-danger"></span>
-            <textarea  name=text id="text" cols="30" rows="10">{{ $post->content }}</textarea>
+            <textarea  name=content id="text" cols="30" rows="10">{{ $post->content }}</textarea>
+
+            @error('content')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            
           </div>
           <div class="form-group">
             <label>Danh Muc</label>
             <select class="custom-select" name="category">
+
                 @foreach($data_cate as $cate)
+
                   <option value="{{ $cate->id }}" {{ $cate->id == $post->cate_id ? 'selected' : '' }}>{{ $cate->name }}</option>
+
                 @endforeach
+                
             </select>
           </div>
           <div class="form-group">
@@ -40,10 +54,10 @@
                   <img id="image_upload_preview"
                   src="
                   @if($post->image == "")
-	                                            http://placehold.it/100x100
-											@else 
-												{{ asset('img/upload/post/'.$post->image) }}
-											@endif
+                    http://placehold.it/100x100
+                  @else 
+                    {{ asset('img/upload/post/'.$post->image) }}
+                  @endif
                   "
                    alt="your image" width="300" />
             </div>

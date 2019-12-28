@@ -40,12 +40,12 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $is_menu = $request->is_menu ?? '0';
-
-        Category::create([
+        $data_cate = [
             'name' => $request->category,
             'slug' => Str::slug($request->category),
             'is_menu' => $is_menu
-        ]);
+        ];
+        Category::create($data_cate);
 
         return redirect()->route('cate.index')->with('success' , 'Add Category Successfully');
     }

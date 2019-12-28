@@ -21,9 +21,6 @@ class PostController extends Controller
     {
         $post = Post::with('category')->paginate(10);
 
-        if(!$post || count($post) < 0) {
-            return 'k co bai viet';
-        }
         return view('admin.pages.post.list', compact('post'));
     }
 
@@ -46,24 +43,25 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {   
-        $img = $request->file('image');
-        $path = 'img/upload/post';
-
-        if($request->hasFile('image')) {
-            $img_post = Helper::checkImage($img, $path);
-        } else {
-            return back()->with('ban chua upload file');
-        }
-    
-        Post:: create([
+        $data_post = [
             'title' => $request->title,
-            'content' => $request->text,
+            'content' => $request->content,
             'cate_id' => $request->category,
-            'image' => $img_post,
             'slug' => Str::slug($request->title),
             'publish_date' => date('Y-m-d H:i:s'),
             'user_id' => Auth::id(),
-        ]);
+        ];
+        $path = 'img/upload/post';
+
+        if($request->hasFile('image')) {
+            $img = $request->file('image');
+            $img_post = Helper::checkImage($img, $path);
+
+            $data_post['image'] = $img_post;
+        } 
+        
+    
+        Post::create($data_post);
 
         return redirect()->route('post.index')->with('success', 'Them post thanh cong');
     }
@@ -103,22 +101,22 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $img = $request->file('image');
-        $path = 'img/upload/post';
-        if($request->hasFile('image')) {
-            $img_post = Helper::checkImage($img, $path);
-        } else {
-            return back()->with('fail', 'Ban chua upload anh');
-        }
-        $post->update([
+        $attrubutes = [
             'title' => $request->title,
-            'content' => $request->text,
+            'content' => $request->content,
             'cate_id' => $request->category,
-            'image' => $img_post,
             'slug' => Str::slug($request->title),
             'publish_date' => date('Y-m-d H:i:s'),
             'user_id' => Auth::id(),
-        ]);
+        ];
+
+        $path = 'img/upload/post';
+        if($request->hasFile('image')) {
+            $img_post = Helper::checkImage($request->file('image'), $path);
+            $attrubutes['image'] = $img_post;
+        } 
+
+        $post->update($attrubutes);
 
         return redirect()->route('post.index');
     }
@@ -131,6 +129,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id)->delete();
+
+        if($post) {
+            return response(['success' => 'Delete Successfully']);
+        } 
+        return response(['error' => 'Delete fail']);
     }
 }

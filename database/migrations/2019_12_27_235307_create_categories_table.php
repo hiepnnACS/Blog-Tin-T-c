@@ -17,9 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->integer('parent_id')->default(-1);
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->integer('lever')->default(0);
             $table->integer('deleted_at')->default(0);
+            $table->foreign('parent_id')->references('id')->on('categories');
+
             $table->timestamps();
         });
     }
