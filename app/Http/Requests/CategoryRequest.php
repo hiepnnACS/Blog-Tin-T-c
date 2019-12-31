@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -23,8 +24,9 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->idCate);
         return [
-            'category' => 'required|max:255|min:2|unique:categories,name'
+            'category' => 'required|max:255|min:2|unique:categories,name,'.$this->idCate
         ];
     }
 }

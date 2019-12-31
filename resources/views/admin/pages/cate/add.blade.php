@@ -1,6 +1,7 @@
 @extends('admin.master')
 
 @section('content')
+
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
@@ -16,10 +17,19 @@
         <div class="card-body">
           <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
-            <input name="category" class="form-control" id="exampleInputEmail1" placeholder="Enter...">
-            @if($errors->count() > 0)
-                <p class="text-danger">{{ $errors->first('category') }}</p>
-            @endif
+            <input name="category" value="{{ old('category') }}" class="form-control" id="exampleInputEmail1" placeholder="Enter...">
+            @error('category')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Parent Category</label>
+            <select class="form-control" name="parent_id" id="">
+              <option value="0">Parent</option>
+              @php
+                  showCategories($categories);
+              @endphp
+            </select>
           </div>
           <div class="custom-control custom-checkbox">
             <input class="custom-control-input" type="checkbox" id="customCheckbox1" name="is_menu" value="1">
@@ -36,3 +46,24 @@
     <!-- /.card -->
 </div>
 @endsection
+
+@php
+    function showCategories($categories, $parent_id = 0, $char = '')
+    {
+      // $_GLOBALS['level'];
+        foreach ($categories as $key => $item)
+        {
+            // Nếu là chuyên mục con thì hiển thị
+            if ($item->parent_id == $parent_id)
+            { 
+                echo '<option value="' .$item->id . '">'.$char.$item->name. '</option>';
+                
+                // Xóa chuyên mục đã lặp
+                unset($categories[$key]);
+                
+                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                showCategories($categories, $item->id, $char.' --');
+            }
+        }
+    }
+@endphp

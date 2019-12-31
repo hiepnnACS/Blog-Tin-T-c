@@ -28,7 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.cate.add');
+        $categories = Category::orderBy('name', 'ASC')->get();
+        
+        return view('admin.pages.cate.add', compact('categories'));
     }
 
     /**
@@ -43,7 +45,8 @@ class CategoryController extends Controller
         $data_cate = [
             'name' => $request->category,
             'slug' => Str::slug($request->category),
-            'is_menu' => $is_menu
+            'is_menu' => $is_menu,
+            'parent_id' => $request->parent_id,
         ];
         Category::create($data_cate);
 
@@ -70,12 +73,13 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $cate = Category::find($id);
+        $categories = Category::orderBy('name', 'ASC')->where('id', '!=', $cate->id)->get();
 
         if(!$cate) {
             return '404';
         }
 
-        return view('admin.pages.cate.edit', compact('cate'));
+        return view('admin.pages.cate.edit', compact('cate', 'categories'));
     }
 
     /**
@@ -87,9 +91,9 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
+        
         $is_menu = $request->is_menu ?? '0';
         $cate = Category::find($id);
-        
         if(!$cate) {
             return '404';
         }
@@ -97,6 +101,7 @@ class CategoryController extends Controller
             'name' => $request->category,
             'slug' => Str::slug($request->category, '-'),
             'is_menu' => $is_menu,
+            'parent_id' => $request->parent_id,
         ]);
 
         return redirect()->route('cate.index')->with('success' , 'Ban da sua thanh cong');

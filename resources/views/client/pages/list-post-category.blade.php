@@ -1,9 +1,10 @@
 @extends('client.master')
 
 @section('title')
-
+    Category
 @endsection
 
+@section('jumbotron')
 <div class="page-title lb single-wrapper">
     <div class="container">
         <div class="row">
@@ -20,6 +21,7 @@
         </div><!-- end row -->
     </div><!-- end container -->
 </div>
+@endsection
 @section('content')
 
     <div class="page-wrapper">

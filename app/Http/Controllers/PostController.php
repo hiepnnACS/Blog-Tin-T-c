@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Post;
 use Helper;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -31,8 +32,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::orderBy('name', 'ASC')->with('categories')->get();
 
-        return view('admin.pages.post.add');
+        // dd($categorys);
+        return view('admin.pages.post.add', compact('categories'));
     }
 
     /**
@@ -43,13 +46,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {   
+        // dd($request->all());   
         $data_post = [
             'title' => $request->title,
             'content' => $request->content,
-            'cate_id' => $request->category,
             'slug' => Str::slug($request->title),
             'publish_date' => date('Y-m-d H:i:s'),
             'user_id' => Auth::id(),
+            'cate_id' => $request->cate_id,
         ];
         $path = 'img/upload/post';
 
@@ -85,9 +89,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-
-        return view('admin.pages.post.edit', compact('post'));
+        $post = Post::with('category')->findOrFail($id);
+        $cate = Category::orderBy('name', 'ASC')->get();
+        return view('admin.pages.post.edit', compact('post', 'cate'));
     }
 
     /**

@@ -74,4 +74,12 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function subMenu()
+    {
+        $category = Category::whereNull('parent_id')
+                    ->with('childrenCategory')
+                    ->get();
+        return view('test', compact('category'));
+    }
 }

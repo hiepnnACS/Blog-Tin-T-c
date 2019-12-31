@@ -13,8 +13,9 @@ class ViewComposer {
    */
   public function __construct()
   {
-    $this->data_cate = Category::where('is_menu', 1)->get();
-    // dd($this->data_cate);
+    $this->category = Category::orderBy('name', 'ASC')
+                              ->where('is_menu' , 1)
+                              ->get();
   }
 
   /**
@@ -24,7 +25,7 @@ class ViewComposer {
    */
   public function compose(View $view)
   {
-    $view->with('data_cate', $this->data_cate);
+    $view->with('category', $this->category);
   }
 
 }

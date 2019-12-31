@@ -1,5 +1,4 @@
 
-
 <script src="/js/app.js"></script>
 <script src={{ asset('ckeditor/ckeditor.js') }}></script>
     <script>

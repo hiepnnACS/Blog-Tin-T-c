@@ -35,7 +35,7 @@
                   <input type="hidden" name="id" id="url{{ $p->id }}" value="{{ $p->id }}">
                     <td>{{ $loop->index + 1 }}
                     <td class="td-title">{{ $p->title }}
-                    <td class="td-content">{!! Str::limit($p->content, 200) !!}</td>
+                    <td class="td-content">{{ Str::limit($p->content, 200) }}</td>
                     <td><img class="img-thumnail" width="100" src="{{ asset('img/upload/post/'. $p->image) }}" alt=""></td>
                     <td>{{ $p->views }}</td>
                     <td>{{ $p->category->name }}</td>

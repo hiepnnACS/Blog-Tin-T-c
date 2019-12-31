@@ -33,13 +33,27 @@
             @enderror
 
           </div>
+         
           <div class="form-group">
             <label>Danh Muc</label>
-            <select class="custom-select" name="category">
-                @foreach($data_cate as $cate)
+            
+            <select class="custom-select" name="cate_id">
+                {{-- @foreach($categories as $cate)
                   <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                @endforeach
+
+                      @if($cate->childrenCategory)
+                        @foreach ($cate->childrenCategory as $child)
+                            <option value="{{ $child->id }}">-- {{ $child->name }}</option>
+                      
+                        @endforeach
+                      @endif
+
+                @endforeach --}}
+                <option value="0">Parent</option>
+                @php showCategories($categories) @endphp
+
             </select>
+            
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Ảnh</label>
@@ -48,13 +62,8 @@
                   <input type='file' id="inputFile" name="image" />
                   <img id="image_upload_preview" src=""
                    alt="your image" width="300"  />
-                  
             </div>
           </div>
-          {{-- <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" id="customCheckbox1" name="is_menu" value="1">
-            <label for="customCheckbox1" class="custom-control-label">Display</label>
-          </div> --}}
         </div>
         <!-- /.card-body -->
 
@@ -66,8 +75,28 @@
     <!-- /.card -->
 </div>
 </div>
-
 @endsection
+
+@php
+    function showCategories($categories, $parent_id = 0, $char = '')
+    {
+        foreach ($categories as $key => $item)
+        {
+            // Nếu là chuyên mục con thì hiển thị
+            if ($item->parent_id == $parent_id)
+            {
+
+              echo '<option value="' .$item->id . '">'.$char.$item->name. '</option>';
+                
+                // Xóa chuyên mục đã lặp
+                unset($categories[$key]);
+                
+                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                showCategories($categories, $item->id, $char.' --',);
+            }
+        }
+    }
+@endphp
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init({selector:'textarea'});</script>

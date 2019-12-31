@@ -37,12 +37,11 @@
           <div class="form-group">
             <label>Danh Muc</label>
             <select class="custom-select" name="category">
+              <option value="0">Parent</option>
 
-                @foreach($data_cate as $cate)
-
-                  <option value="{{ $cate->id }}" {{ $cate->id == $post->cate_id ? 'selected' : '' }}>{{ $cate->name }}</option>
-
-                @endforeach
+                @php 
+                  showCategories($cate) 
+                @endphp
                 
             </select>
           </div>
@@ -62,10 +61,6 @@
                    alt="your image" width="300" />
             </div>
           </div>
-          {{-- <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" id="customCheckbox1" name="is_menu" value="1">
-            <label for="customCheckbox1" class="custom-control-label">Display</label>
-          </div> --}}
         </div>
         <!-- /.card-body -->
 
@@ -78,9 +73,26 @@
 </div>
 </div>
 @endsection
+@php
+    function showCategories($categories, $parent_id = 0, $char = '')
+    {
+        foreach ($categories as $key => $item)
+        {
+            // Nếu là chuyên mục con thì hiển thị
+            if ($item->parent_id == $parent_id)
+            {
 
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>tinymce.init({selector:'textarea'});</script>
+              echo '<option value="' .$item->id . '">'.$char.$item->name. '</option>';
+                
+                // Xóa chuyên mục đã lặp
+                unset($categories[$key]);
+                
+                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                showCategories($categories, $item->id, $char.' --');
+            }
+        }
+    }
+@endphp
 
 @section('js_cate')
 <script type="text/javascript">

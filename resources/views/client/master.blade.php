@@ -17,6 +17,8 @@
     <!-- Site Icons -->
     <link rel="shortcut icon" href="{{ asset('client/images/favicon.ico') }}" type="image/x-icon" />
     <link rel="apple-touch-icon" href="{{ asset('client/images/apple-touch-icon.png') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
     
     {{-- css --}}
     @include('client.layouts.css')
@@ -28,21 +30,15 @@
 
 </head>
 <body>
-
     <div id="wrapper">
-        <header class="tech-header header">
-            <div class="container-fluid">
+        {{-- navbar --}}
+        @include('client.layouts.navbar')
 
-                {{-- navbar --}}
-                @include('client.layouts.navbar')
-
-            </div><!-- end container-fluid -->
-        </header><!-- end market-header -->
+        {{-- jumbotron category  --}}
+        @yield('jumbotron')
 
         {{-- highlight Post --}}
-        {{-- <section class="section first-section"> --}}
-            @yield('highlight-post')
-        {{-- </section> --}}
+        @yield('highlight-post')
 
         <section class="section">
             <div class="container">
