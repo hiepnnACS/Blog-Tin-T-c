@@ -1,9 +1,5 @@
 <?php
 
 
-Route::resource('/cate', 'CategoryController', [
-    'middleware' => 'auth'
-]);
-Route::resource('/post', 'PostController', [
-    'middleware' => 'auth'
-]);
+// Route::resource('/cate', 'CategoryController');
+// Route::resource('/post', 'PostController');

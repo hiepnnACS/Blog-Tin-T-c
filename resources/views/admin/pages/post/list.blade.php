@@ -11,9 +11,12 @@
         <div class="card-header">
           <h3 class="card-title">Post Table</h3>
 
-          <div class="card-tools">
-            <a class="btn btn-success" href="{{ route('post.create') }}">Add Post <i class="fas fa-user-plus fa-fw"></i></a>
-          </div>
+          @can('posts.create', Auth::user())
+            <div class="card-tools">
+              <a class="btn btn-success" href="{{ route('post.create') }}">Add Post <i class="fas fa-user-plus fa-fw"></i></a>
+            </div>
+          @endcan
+          
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
@@ -41,13 +44,17 @@
                     <td>{{ $p->category->name }}</td>
                     <td>{{ $p->status == 1 ? 'Hiển thị' : 'Không Hiển Thị' }}</td>
                     <td class="btn-post">
-                        <a href="{{ route('post.edit', $p->id) }} ">
-                             <i class="fa fa-edit"></i>
-                        </a>
-                        |
-                        <a href="{{ route('post.destroy', $p->id) }}" data-method="delete" class="jquery-postback">
-                             <i class="fa fa-trash"></i>
-                        </a>
+                        @can('posts.update', Auth::user())
+                          <a href="{{ route('post.edit', $p->id) }} ">
+                              <i class="fa fa-edit"></i>
+                          </a>
+                        @endcan
+                        
+                        @can('posts.delete', Auth::user())
+                          <a href="{{ route('post.destroy', $p->id) }}" data-method="delete" class="jquery-postback">
+                              <i class="fa fa-trash"></i>
+                          </a>
+                        @endcan
                     </td>
                 </tr>
 

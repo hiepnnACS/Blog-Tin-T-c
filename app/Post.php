@@ -35,6 +35,21 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published', true);
+    }
+
+    public function scopeUnpublished($query)
+    {
+        return $query->where('published', false);
+    }
+
     /**
      * Defined Accessor
      */
