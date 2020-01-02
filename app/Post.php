@@ -17,6 +17,7 @@ class Post extends Model
         'user_id',
         'publish_date',
         'slug',
+        'status'
     ];
     protected $appends = ['url_slug'];
 
@@ -27,7 +28,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Admin::class);
     }
 
     public function comments()

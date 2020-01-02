@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Parent Category</label>
             <select class="form-control" name="parent_id" id="">
-              <option value="0">Parent</option>
+              <option value="">Parent</option>
               @php
                   showCategories($categories);
               @endphp

@@ -33,7 +33,7 @@ class CreatePostsTable extends Migration
                   ->references('id')->on('categories')
                   ->onDelete('cascade');
             $table->foreign('user_id')
-                  ->references('id')->on('users')
+                  ->references('id')->on('admins')
                   ->onDelete('cascade');
         });
     }
@@ -45,6 +45,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts_');
+        Schema::dropIfExists('posts');
     }
 }

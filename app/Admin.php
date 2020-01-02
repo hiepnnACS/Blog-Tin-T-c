@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
+    use Notifiable;
     protected $fillable = [
         'name', 'email', 'password','status', 'phone'
     ];
@@ -21,10 +22,16 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    use Notifiable;
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
+
 }

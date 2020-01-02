@@ -135,6 +135,36 @@ return [
         ],
     ],
 
+    'custom' => [
+        'category' => [
+            'required' => 'Bạn chưa điền thông tin!',
+            'unique' => 'Tên danh mục đã tồn tại, vui lòng chọn tên khác!',
+            'max' => 'Tên danh mục phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'min' => 'Tên danh mục phải lớn hơn 2 và ít hơn 255 kí tự !',
+        ],
+        
+    ],
+
+    'custom' => [
+        'title' => [
+            'required' => 'Bạn chưa điền tiêu đề !',
+            'max' => 'Tên tiêu đề phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'min' => 'Tên tiêu đề phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'unique' => 'Tên tiêu đề đã tồn tại'
+        ],
+        'content' => [
+            'required' => 'Bạn chưa nhập nội dung !',
+            'min' => 'Vui lòng nhập nội dung nhiều hơn 10 kí tự !',
+        ],
+        'image' => [
+            'image' => 'file upload phải là ảnh !',
+            'mimes' => 'File upload phải là file jpeg,png,jpg,gif,svg !',
+            'max' => 'Kích thước file phải nhỏ hơn 2048kb',
+            'required' => 'Bạn chưa chọn file',
+        ]
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes

@@ -109,7 +109,7 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
         ]);
 
-        return redirect()->route('cate.index')->with('success' , 'Ban da sua thanh cong');
+        return redirect()->route('cate.index')->with('success' , 'Bạn đã sửa thành công!');
     }
 
     /**
@@ -127,6 +127,6 @@ class CategoryController extends Controller
         }
         $cate->delete();
 
-        return back()->with('success', 'Ban da xoa thanh cong');
+        return back()->with('success', 'Bạn đã xóa thành công');
     }
 }

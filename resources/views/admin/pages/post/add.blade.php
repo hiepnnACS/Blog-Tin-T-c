@@ -15,6 +15,13 @@
           @csrf
         <div class="card-body">
           <div class="form-group">
+            <label for="exampleInputEmail1">Show Post</label>
+            <input type="checkbox" name="status" value="1">
+
+            @error('content')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+          <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
             <input value="{{ old('title') }}" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter...">
 
@@ -25,7 +32,6 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Content</label>
-            <span class="text-danger"></span>
             <textarea  name=content id="text" cols="30" rows="10">{{ old('text') }}</textarea>
 
             @error('content')
@@ -33,23 +39,15 @@
             @enderror
 
           </div>
+
+          
+
+          </div>
          
           <div class="form-group">
             <label>Danh Muc</label>
-            
             <select class="custom-select" name="cate_id">
-                {{-- @foreach($categories as $cate)
-                  <option value="{{ $cate->id }}">{{ $cate->name }}</option>
 
-                      @if($cate->childrenCategory)
-                        @foreach ($cate->childrenCategory as $child)
-                            <option value="{{ $child->id }}">-- {{ $child->name }}</option>
-                      
-                        @endforeach
-                      @endif
-
-                @endforeach --}}
-                <option value="0">Parent</option>
                 @php showCategories($categories) @endphp
 
             </select>
@@ -58,11 +56,13 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Ảnh</label>
             <div class="col-md-4">
-              <span class="text-danger">{{ $errors->first('image') }}</span>
                   <input type='file' id="inputFile" name="image" />
                   <img id="image_upload_preview" src=""
                    alt="your image" width="300"  />
             </div>
+            @error('image')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
           </div>
         </div>
         <!-- /.card-body -->
@@ -125,4 +125,5 @@
  
   });
 </script>
+
 @endsection

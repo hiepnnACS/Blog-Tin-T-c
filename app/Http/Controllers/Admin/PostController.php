@@ -58,7 +58,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
-    {   
+    {   $status = $request->status == 1 ? $request->status : '0';
         $data_post = [
             'title' => $request->title,
             'content' => $request->content,
@@ -66,6 +66,7 @@ class PostController extends Controller
             'publish_date' => date('Y-m-d H:i:s'),
             'user_id' => Auth::id(),
             'cate_id' => $request->cate_id,
+            'status' => $status,
         ];
         $path = 'img/upload/post';
 
@@ -76,10 +77,9 @@ class PostController extends Controller
             $data_post['image'] = $img_post;
         } 
         
-    
         Post::create($data_post);
 
-        return redirect()->route('post.index')->with('success', 'Them post thanh cong');
+        return redirect()->route('post.index')->with('success', 'Add Post Successfully!');
     }
 
     /**
@@ -101,12 +101,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->can('posts.update')) {
-
             $post = Post::with('category')->findOrFail($id);
             $cate = Category::orderBy('name', 'ASC')->get();
             return view('admin.pages.post.edit', compact('post', 'cate'));
-        }
 
     }
 
@@ -119,26 +116,31 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        $post = Post::findOrFail($id);
+        if(Auth::user()->can('posts.update')) {
 
-        $attrubutes = [
-            'title' => $request->title,
-            'content' => $request->content,
-            'cate_id' => $request->category,
-            'slug' => Str::slug($request->title),
-            'publish_date' => date('Y-m-d H:i:s'),
-            'user_id' => Auth::id(),
-        ];
+            $post = Post::findOrFail($id);
+            $status = $request->status == 1 ? $request->status : 0;
 
-        $path = 'img/upload/post';
-        if($request->hasFile('image')) {
-            $img_post = Helper::checkImage($request->file('image'), $path);
-            $attrubutes['image'] = $img_post;
-        } 
+            $attrubutes = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'cate_id' => $request->category,
+                'slug' => Str::slug($request->title),
+                'publish_date' => date('Y-m-d H:i:s'),
+                'user_id' => Auth::id(),
+                'status' => $status,
+            ];
 
-        $post->update($attrubutes);
+            $path = 'img/upload/post';
+            if($request->hasFile('image')) {
+                $img_post = Helper::checkImage($request->file('image'), $path);
+                $attrubutes['image'] = $img_post;
+            } 
 
-        return redirect()->route('post.index');
+            $post->update($attrubutes);
+
+            return redirect(route('post.index'))->with('success' , 'Edit Posts Successfully');
+        }
     }
 
     /**
@@ -150,10 +152,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         if(Auth::user()->can('posts.delete')) {
+
              $post = Post::findOrFail($id)->delete();
 
             if($post) {
-                return response(['success' => 'Delete Successfully']);
+                return response(['success' => 'Delete Post Successfully']);
             } 
             return response(['error' => 'Delete fail']);
         }

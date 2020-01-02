@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'detailPost', 'listPostCategory']);
     }
 
     /**
@@ -28,7 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data_product = Post::latest()->with('category', 'user')->paginate(10);
+        $data_product = Post::latest()->with('category', 'user')
+                        ->where('status', 1)
+                        ->paginate(10);
         
         return view('home', compact('data_product'));
     }
@@ -38,7 +40,10 @@ class HomeController extends Controller
      */
     public function detailPost($slugPost)
     {        
-        $post = Post::with('comments.user')->where('slug', $slugPost)->first();
+        $post = Post::with('comments.user')
+                ->where('slug', $slugPost)
+                ->where('status', 1)
+                ->first();
         $post->increment("views");
 
         return view('client.pages.detailPost', compact('post'));
@@ -50,6 +55,7 @@ class HomeController extends Controller
     public function listPostCategory($slugCate) 
     {
         $listPost = Post::with('category', 'user')
+                        ->where('status', 1)
                         ->whereHas('category', function ($query) use ($slugCate) {
                             $query->where('categories.slug','like', $slugCate);
                         })->paginate(10);

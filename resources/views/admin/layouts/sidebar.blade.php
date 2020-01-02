@@ -36,7 +36,7 @@
         </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
+              <i class="nav-icon fas fa-newspaper"></i>
               <p>
                 Posts
                 <i class="right fa fa-angle-left"></i>
@@ -59,7 +59,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
+              <i class="nav-icon fas fa-list-alt"></i>
               <p>
                 Category
                 <i class="right fa fa-angle-left"></i>
@@ -80,14 +80,76 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-key"></i>
               <p>
-                Profile
+                Permission
+                <i class="right fa fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('permission.index') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>List Permission</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('permission.create') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Permission</p>
+                </a>
+              </li>
+            </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Role
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('role.index') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>List Role</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('role.create') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Role</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                User
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>List User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('user.create') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add User</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();

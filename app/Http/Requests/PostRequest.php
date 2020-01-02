@@ -31,7 +31,7 @@ class PostRequest extends FormRequest
                 "max:255",
                 Rule::unique('posts')->ignore($this->id),
             ],
-            'content' => 'required|min:2',
+            'content' => 'required|min:10',
             'image' => [
                 "nullable",
                 "image",

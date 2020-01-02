@@ -13,8 +13,14 @@
       <form role="form" action="{{ route('post.update', $post->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('put')
+        
         <input type="hidden" name="id" value="{{ $post->id }}">
         <div class="card-body">
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Show Post</label>
+            <input type="checkbox" name="status" value="1" {{ $post->status == 1 ? 'checked' : '' }}>
+          </div>
           <div class="form-group">
 
             @error('title')
@@ -37,8 +43,6 @@
           <div class="form-group">
             <label>Danh Muc</label>
             <select class="custom-select" name="category">
-              <option value="0">Parent</option>
-
                 @php 
                   showCategories($cate) 
                 @endphp
