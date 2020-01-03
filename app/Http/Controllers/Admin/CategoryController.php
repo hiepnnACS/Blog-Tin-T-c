@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Str;
 use App\Category;
+use App\Post;
+use App\Comment;
 
 class CategoryController extends Controller
 {
@@ -119,12 +121,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $cate = Category::find($id);
-     
-        if(!$cate) {    
-            return '404';
-        }
-        $cate->delete();
+       
+        Category::find($id)->delete();
 
         return back()->with('success', 'Bạn đã xóa thành công');
     }

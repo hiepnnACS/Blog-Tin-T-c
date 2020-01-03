@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Post;
 use Helper;
+use App\Comment;
 use App\Category;
 
 class PostController extends Controller
@@ -66,7 +67,7 @@ class PostController extends Controller
 
              return view('admin.pages.post.add', compact('categories'));
         } 
-        return view('err.403');
+        return view('error.403');
         
     }
 
@@ -127,7 +128,7 @@ class PostController extends Controller
             return view('admin.pages.post.edit', compact('post', 'cate'));
         }
 
-        return view('err.403');
+        return view('error.403');
 
     }
 
@@ -179,14 +180,13 @@ class PostController extends Controller
     {
         if(Auth::user()->can('posts.delete')) {
 
+             Comment::where('post_id', $id)->delete();
+
              $post = Post::findOrFail($id)->delete();
 
-            if($post) {
-                return response(['success' => 'Delete Post Successfully']);
-            } 
-            return response(['error' => 'Delete fail']);
-        }
+             return back()->with('success', 'Bạn đã xóa thành công');
 
+        }
         return view('err.403');
     }
 }

@@ -88,9 +88,21 @@
                         @endcan
                         
                         @can('posts.delete', Auth::user())
-                          <a href="{{ route('post.destroy', $p->id) }}" data-method="delete" class="jquery-postback">
-                              <i class="fa fa-trash"></i>
-                          </a>
+                          <td>
+                            <form id="delete-form-{{ $p->id }}" method="post" action="{{ route('post.destroy',$p->id) }}" style="display: none">
+                              {{ csrf_field() }}
+                              {{ method_field('DELETE') }}
+                            </form>
+                            <a href="" onclick="
+                                if(confirm('Are you sure, You Want to delete this?'))
+                                {
+                                  event.preventDefault();
+                                  document.getElementById('delete-form-{{ $p->id }}').submit();
+                                }
+                                else{
+                                  event.preventDefault();
+                                }" ><span class="fa fa-trash"></span></a>
+                          </td>
                         @endcan
                     </td>
                 </tr>
