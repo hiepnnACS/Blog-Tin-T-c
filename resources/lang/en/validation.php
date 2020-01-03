@@ -134,7 +134,8 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-
+    
+    // Category
     'custom' => [
         'category' => [
             'required' => 'Bạn chưa điền thông tin!',
@@ -145,6 +146,7 @@ return [
         
     ],
 
+    // Post
     'custom' => [
         'title' => [
             'required' => 'Bạn chưa điền tiêu đề !',
@@ -161,8 +163,45 @@ return [
             'mimes' => 'File upload phải là file jpeg,png,jpg,gif,svg !',
             'max' => 'Kích thước file phải nhỏ hơn 2048kb',
             'required' => 'Bạn chưa chọn file',
-        ]
+        ],
+       
     ],
+    
+    // Permission
+    'custom' => [
+        'permission' => [
+            'required' => 'Bạn chưa điền Permission !',
+            'max' => 'Tên Permission phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'min' => 'Tên Permission phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'unique' => 'Tên Permission đã tồn tại'
+        ],
+        'for' => [
+            'required' => 'Bạn chưa chọn role',
+        ],
+    ],
+    
+    // role
+    'custom' => [
+        'role' => [
+            'required' => 'Bạn chưa điền tên role !',
+            'max' => 'Tên role phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'min' => 'Tên role phải lớn hơn 2 và ít hơn 255 kí tự !',
+            'unique' => 'Tên role đã tồn tại'
+        ],
+    ],
+
+    'custom' => [
+        'email' => [
+            'required' => 'Ban chua nhap email'
+        ],
+    ],
+    // user
+    
+
+    //  'name' => 'required|string|max:255',
+    // 'email' => 'required|string|email|max:255|unique:admins',
+    // 'phone' => 'required|numeric',
+    // 'password' => 'required|string|min:6|confirmed',
 
 
     /*

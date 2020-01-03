@@ -20,12 +20,12 @@
           <form role="form" action="{{ route('user.update', $user->id) }}" method="post">
           {{ csrf_field() }}
           @method('put')
+          <input type="hidden" name="idUser" value="{{ $user->id }}">
             <div class="box-body">
             <div class="col-lg-offset-3 col-lg-6">
               <div class="form-group">
                 <label for="name">User Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="
-                @if(old('name')) {{ old('name') }} @else {{ $user->name}} @endif">
+                <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="@if(old('name')) {{ old('name') }} @else {{ $user->name }} @endif">
               </div>
               @error('name')
                   <div class="alert alert-danger">{{ $message }}</div>
@@ -33,8 +33,7 @@
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="
-                @if(old('email')) {{ old('email') }} @else {{ $user->email}} @endif">
+                <input type="text" class="form-control" id="email" name="email" placeholder="email" value="@if(old('email')) {{ old('email') }} @else {{ $user->email}} @endif">
               </div>
               @error('email')
                   <div class="alert alert-danger">{{ $message }}</div>
@@ -42,8 +41,7 @@
 
               <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="
-                @if(old('phone')) {{ old('phone') }} @else {{ $user->phone}} @endif">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="@if(old('phone')) {{ old('phone') }} @else {{ $user->phone}} @endif">
               </div>
               @error('phone')
                   <div class="alert alert-danger">{{ $message }}</div>
@@ -51,8 +49,7 @@
 
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="password" value="
-                @if(old('password')){{ old('password') }} @else {{ $user->password}} @endif">
+                <input type="password" class="form-control" id="password" name="password" placeholder="password" value="@if(old('password')){{ old('password') }} @else {{ $user->password}} @endif">
               </div>
               @error('password')
                   <div class="alert alert-danger">{{ $message }}</div>
@@ -99,7 +96,7 @@
               
             </div>
         
-      </div>
+            </div>
 
           </form>
         </div>

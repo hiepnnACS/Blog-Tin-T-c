@@ -16,11 +16,13 @@
         
         <input type="hidden" name="id" value="{{ $post->id }}">
         <div class="card-body">
-
+          
+          @can('posts.publish', Auth::user())
           <div class="form-group">
             <label for="exampleInputEmail1">Show Post</label>
             <input type="checkbox" name="status" value="1" {{ $post->status == 1 ? 'checked' : '' }}>
           </div>
+          @endcan
           <div class="form-group">
 
             @error('title')

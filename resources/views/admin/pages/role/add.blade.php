@@ -23,8 +23,8 @@
             <div class="col-lg-offset-3 col-lg-6">
               <div class="form-group">
                 <label for="name">Role Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="{{ old('name') }}">
-                @error('name')
+                <input type="text" class="form-control" id="name" name="role" placeholder="Role" value="{{ old('role') }}">
+                @error('role')
                   <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 

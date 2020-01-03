@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -36,21 +37,6 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function owner()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->where('published', true);
-    }
-
-    public function scopeUnpublished($query)
-    {
-        return $query->where('published', false);
-    }
-
     /**
      * Defined Accessor
      */
@@ -63,4 +49,11 @@ class Post extends Model
     {
         return Str::limit(strip_tags($this->content), 200);
     }   
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
+
+     
 }

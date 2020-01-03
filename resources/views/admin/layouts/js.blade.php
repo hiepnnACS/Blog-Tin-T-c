@@ -11,5 +11,11 @@
     @yield('js_cate')
 
     @yield('js_post')
-
+<script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(600, 0).slideUp(600, function(){
+                $(this).remove(); 
+            });
+        }, 2000);
+      </script>
 @include('ckfinder::setup')

@@ -10,6 +10,11 @@ use App\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+        $this->middleware('can:posts.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = Admin::all();
+        $users = Admin::with('roles')->paginate(10);
 
         return view('admin.pages.user.list', compact('users'));
     }

@@ -3,14 +3,14 @@
         <div class="masonry-blog clearfix">
             <div class="first-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('img/upload/banner/banner1.jpg') }}" width="788" height="443" alt="" class="img-thumnail">
+                     <img src="{{ asset('img/upload/post/'. $highlight_post[0]->image) }}" width="788" height="443" alt="" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">Say hello to real handmade office furniture! Clean & beautiful design</a></h4>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{ $highlight_post[0]->category->name }}</a></span>
+                                <h4><a href="{{ route('post.detail', $highlight_post[0]->url_slug) }}" title="">{{ $highlight_post[0]->title }}</a></h4>
                                 <small><a href="tech-single.html" title="">24 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Amanda</a></small>
+                                <small><a href="tech-author.html" title="">{{ $highlight_post[0]->category->name }}</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
                     </div><!-- end shadow -->
@@ -19,14 +19,14 @@
 
             <div class="second-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('img/upload/banner/banner-2.png') }}" alt="" width="394" height="449" class="img-thumnail">
+                     <img src="{{ asset('img/upload/post/'. $highlight_post[1]->image) }}" alt="" width="394" height="449" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Gadgets</a></span>
-                                <h4><a href="tech-single.html" title="">Do not make mistakes when choosing web hosting</a></h4>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{ $highlight_post[1]->category->name }}</a></span>
+                                <h4><a href="{{ route('post.detail', $highlight_post[1]->url_slug) }}" title="">{{ $highlight_post[1]->title }}</a></h4>
                                 <small><a href="tech-single.html" title="">03 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Jessica</a></small>
+                                <small><a href="tech-author.html" title="">{{ $highlight_post[1]->user->name }}</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
                      </div><!-- end shadow -->
@@ -35,14 +35,14 @@
 
             <div class="last-slot">
                 <div class="masonry-box post-media">
-                     <img src="{{ asset('img/upload/banner/banner-3.png') }}" width="394" height="449" alt="" class="img-thumnail">
+                     <img src="{{ asset('img/upload/post/'. $highlight_post[2]->image) }}" width="394" height="449" alt="" class="img-thumnail">
                      <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">The most reliable Galaxy Note 8 images leaked</a></h4>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{ $highlight_post[2]->category->name }}</a></span>
+                                <h4><a href="{{ route('post.detail', $highlight_post[2]->url_slug) }}" title="">{{ $highlight_post[2]->title }}</a></h4>
                                 <small><a href="tech-single.html" title="">01 July, 2017</a></small>
-                                <small><a href="tech-author.html" title="">by Jessica</a></small>
+                                <small><a href="tech-author.html" title="">{{ $highlight_post[2]->user->name }}</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
                      </div><!-- end shadow -->

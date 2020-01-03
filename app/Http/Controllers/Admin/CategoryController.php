@@ -13,6 +13,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('can:posts.category');
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $cate = Category::paginate(10);
 
         return view('admin.pages.cate.list', compact('cate'));
@@ -99,9 +100,7 @@ class CategoryController extends Controller
         
         $is_menu = $request->is_menu ?? '0';
         $cate = Category::find($id);
-        if(!$cate) {
-            return '404';
-        }
+        
         $cate->update([
             'name' => $request->category,
             'slug' => Str::slug($request->category, '-'),

@@ -1,26 +1,38 @@
 <?php
 
-
-// Route::get('/', function () {
-//     return view('admin.pages.index');
-// });
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/{slugPost}', 'HomeController@detailPost')->name('post.detail');
+
 Route::get('/cate/{slugCate}', 'HomeController@listPostCategory')->name('post.cate');
-Route::post('/comment/{idPost}', 'HomeController@Comment')->name('post.comment');
+
+Route::post('/comment/{idPost}', 'HomeController@Comment')->name('post.comment')->middleware('auth');
 
 Route::get('/home/checksubmenu', 'HomeController@subMenu');
 
-Route::group(['namespace' => 'Admin'], function() {
-    Route::resource('admin/cate', 'CategoryController');
-    Route::resource('admin/post', 'PostController');
-    Route::resource('admin/user', 'UserController');
-    Route::resource('admin/role', 'RoleController');
-    Route::resource('admin/permission', 'PermissionController');
+Route::get('logout', 'HomeController@logout')->name('logout');
 
-    Route::get('admin/admin-login', 'Auth\LoginController@showLoginForm')->name('admin.login');
-    Route::post('admin/admin-login', 'Auth\LoginController@login');
+Route::get('callback/facebook', 'HomeController@handelProviderCallback');
+
+Route::get('/login/facebook', 'HomeController@redirectProvider')->name('login.social');
+
+// Admin
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+	Route::get('/dashboard', 'DashboardController@index')->name('admin.home');
+
+    Route::resource('/cate', 'CategoryController');
+
+    Route::resource('/post', 'PostController');
+
+    Route::resource('/user', 'UserController');
+
+    Route::resource('/role', 'RoleController');
+
+    Route::resource('/permission', 'PermissionController');
+
+    Route::get('/admin-login', 'Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::post('/admin-login', 'Auth\LoginController@login');
     Route::get('/logout', 'Auth\LoginController@logout');
 });

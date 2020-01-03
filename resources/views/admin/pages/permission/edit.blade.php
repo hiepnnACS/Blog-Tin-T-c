@@ -15,15 +15,16 @@
           {{-- @include('includes.messages') --}}
           <!-- /.box-header -->
           <!-- form start -->
-          <form role="form" action="{{ route('role.update', $permission->id) }}" method="post">
+          <form role="form" action="{{ route('permission.update', $permission->id) }}" method="post">
           {{ csrf_field() }}
           @method('put')
+          <input type="hidden" name="idPermission" value="{{ $permission->id }}">
             <div class="box-body">
             <div class="col-lg-offset-3 col-lg-6">
               <div class="form-group">
-                <label for="name">Role Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="{{ $permission->name }}">
-                @error('name')
+                <label for="name">Permission Name</label>
+                <input type="text" class="form-control" id="permission" name="permission" placeholder="permission" value="{{ $permission->name }}">
+                @error('permission')
                   <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
               </div>
@@ -39,7 +40,7 @@
 
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Submit</button>
-              <a href='{{ route('role.index') }}' class="btn btn-warning">Back</a>
+              <a href='{{ route('permission.index') }}' class="btn btn-warning">Back</a>
             </div>
               
             </div>

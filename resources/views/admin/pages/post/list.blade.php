@@ -2,21 +2,58 @@
 
 @section('content')
 
-<div class="row mt-5">
-    <div class="col-md-12">
-      <div class="card">
-        @if (session('success'))
-          <div class="alert alert-success">{{session('success')}}</div>
-        @endif
-        <div class="card-header">
-          <h3 class="card-title">Post Table</h3>
+ 
+    <div class="row">
+      
+      {{-- Page Size --}}
+      <div class="col-md-3"><h2 class="text-truncate">Post Table</h2></div>
+        <div class="">
+        <div class="dataTables_length" id="example1_length">
+          <form action="" method="get" id="filterForm" >
+          <label>Show <select name="pagesize" id="page-size" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+            <option value="">Chọn</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select> </label>
+        </form>
+        </div>
+      </div>
+      
+      {{-- Search form --}}
+      <div class="search-form mt-3 col-md-6">
+        <form action="{{ route('post.index') }}" method="get">
+          <div class="form-group ">
+            <div class="row">
+                <div class="col-md-6">
+                 <input class="form-control" type="text" name="keyword" value="{{ $keyword }}" placeholder="tim kiem">
+              </div>
+              <div class="col-md-6"><button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button></div>
+              </div>
+            </div>
+          </form>
+        </div>    
+    </div>
+    
 
+    <div class="col-md-12">
+
+      <div class="card">
+        
+        @include('admin.message._message')
+        
+        <div class="card-header">
+          {{-- <h3 class="card-title text-c">Post Table</h3> --}}
+        
           @can('posts.create', Auth::user())
             <div class="card-tools">
               <a class="btn btn-success" href="{{ route('post.create') }}">Add Post <i class="fas fa-user-plus fa-fw"></i></a>
             </div>
           @endcan
-          
+          <div>
+            {{ $post->links() }}
+          </div>
+                 
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
@@ -94,12 +131,13 @@
             console.log(data);
         });
     });
+
+    $(document).ready(function () {
+    $('#page-size').on('change', function() {
+      
+      $('#filterForm').submit();
+    });
+  });
   </script>
-  <script>
-    window.setTimeout(function() {
-        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove(); 
-        });
-    }, 2000);
-  </script>
+
 @endsection

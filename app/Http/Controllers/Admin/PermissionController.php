@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\PermissionRequest;
+use Auth;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+        $this->middleware('can:posts.permission');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::paginate(10);
 
         return view('admin.pages.permission.list', compact('permissions'));
     }
@@ -41,12 +47,12 @@ class PermissionController extends Controller
     {
         $permission = new Permission;
 
-        $permission->name = $request->name;
+        $permission->name = $request->permission;
         $permission->for = $request->for;
 
         $permission->save();
 
-        return redirect(route('permission.index'));
+        return redirect(route('permission.index'))->with('success', 'Add Permission Successfully');
     }
 
     /**
@@ -82,12 +88,12 @@ class PermissionController extends Controller
     {
         $permission = new Permission;
 
-        $permission->name = $request->name;
+        $permission->name = $request->permission;
         $permission->for = $request->for;
 
         $permission->save();
 
-        return redirect(route('permission.index'));
+        return redirect(route('permission.index'))->with('success', 'Edit successfully');
     }
 
     /**
@@ -100,6 +106,6 @@ class PermissionController extends Controller
     {
         Permission::findOrFail($permission->id)->delete();
         
-        return back();
+        return back()->with('delete', 'Delete Successfully');
     }
 }

@@ -24,8 +24,8 @@
             <div class="col-lg-offset-3 col-lg-6">
               <div class="form-group">
                 <label for="name">Permission Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="{{ old('name') }}">
-                @error('name')
+                <input type="text" class="form-control" id="name" name="permission" placeholder="User Name" value="{{ old('permission') }}">
+                @error('permission')
                   <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 

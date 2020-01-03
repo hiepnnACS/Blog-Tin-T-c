@@ -4,9 +4,9 @@
 <div class="row mt-5">
   <div class="col-md-12">
     <div class="card">
-      @if (session('success'))
-        <div class="alert alert-success">{{session('success')}}</div>
-      @endif
+
+      @include('admin.message._message')
+
       <div class="card-header">
         <h3 class="card-title">User Table</h3>
 
@@ -62,6 +62,9 @@
           
           
         </table>
+        <div>
+            {{ $roles->links() }}
+          </div>
         <div>
           {{-- {{ $users->links() }} --}}
         </div>

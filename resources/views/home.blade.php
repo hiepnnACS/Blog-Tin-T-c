@@ -16,7 +16,7 @@
 
     <div class="blog-list clearfix">
 
-        @foreach($data_product as $data)
+        @foreach($data_posts as $data)
             <div class="blog-box row">
                 <div class="col-md-4">
                     <div class="post-media">
@@ -31,7 +31,7 @@
                     <h4><a href="{{ route('post.detail', $data->url_slug) }}" title="">{{ $data->title }}</a></h4>
                     <p>{!! $data->content_limit !!}</p>
                     <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{ $data->category->name }}</a></small>
-                    <small><a href="tech-single.html" title="">21 July, 2017</a></small>
+                    <small><a href="tech-single.html" title="">{{ $data->created_at }}</a></small>
                     <small><a href="tech-author.html" title="">by {{ $data->user->name }}</a></small>
                     <small><a href="tech-single.html" title=""><i class="fa fa-eye"></i>{{ ' '. $data->views }}</a></small>
                 </div><!-- end meta -->
@@ -42,7 +42,7 @@
 
         <hr class="invis">
             <div>
-                {{ $data_product->links() }}
+                {{ $data_posts->links() }}
             </div>
         {{-- <div class="row">
             <div class="col-lg-10 offset-lg-1">

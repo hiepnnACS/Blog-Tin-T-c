@@ -10,6 +10,11 @@ use App\Permission;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+        $this->middleware('can:posts.role');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +22,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-
+        $roles = Role::paginate(10);
+        
         return view('admin.pages.role.list', compact('roles'));
     }
 
@@ -45,13 +50,13 @@ class RoleController extends Controller
         
         $role = new Role;
 
-        $role->name = $request->name;
+        $role->name = $request->role;
 
         $role->save();
 
         $role->permissions()->sync($request->permission);
         
-        return redirect(route('role.index'));
+        return redirect(route('role.index'))->with('success', 'Create Role Successfully !');
     }
 
     /**
@@ -90,13 +95,13 @@ class RoleController extends Controller
         
         $role = Role::findOrFail($id);
 
-        $role->name = $request->name;
+        $role->name = $request->role;
 
         $role->save();
 
         $role->permissions()->sync($request->permission);
         
-        return redirect(route('role.index'));
+        return redirect(route('role.index'))->with('success', 'Edit Role Successfully !');
     }
 
     /**
@@ -109,6 +114,6 @@ class RoleController extends Controller
     {
         Role::where('id', $id)->delete();
 
-        return back();
+        return back()->with('success', 'Delete Role Successfully !');
     }
 }

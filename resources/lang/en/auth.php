@@ -14,6 +14,7 @@ return [
     */
 
     'failed' => 'These credentials do not match our records.',
+    'notpass' => 'Opps! Bạn không có quyền truy cập, vui lòng liên hệ Admin.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

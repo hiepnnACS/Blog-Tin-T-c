@@ -4,9 +4,10 @@
 <div class="row mt-5">
     <div class="col-md-12">
       <div class="card">
-        @if (session('success'))
-          <div class="alert alert-success">{{session('success')}}</div>
-        @endif
+
+        @include('admin.message._message')
+
+        
         <div class="card-header">
           <h3 class="card-title">Category Table</h3>
 

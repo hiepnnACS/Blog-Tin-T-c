@@ -28,11 +28,30 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $post = Post::with('category')->paginate(10);
+        $pagesize = $request->pagesize == null ? 10 : $request->pagesize;
 
-        return view('admin.pages.post.list', compact('post'));
+        $fullUrl = $request->fullUrl();
+
+        $keyword = $request->keyword;
+
+        $addPath = "";
+
+        if(!$keyword) {
+            $post = Post::latest()->with('category')->paginate($pagesize);
+            $addPath .= "?pagesize=$pagesize";
+        } else {
+            $post = Post::latest()
+                        ->where('title', 'like', "%$keyword%")
+                        ->orWhereHas('category', function($query) use ($keyword) {
+                            $query->where('name', 'like', "%$keyword%");
+                        })
+                        ->paginate($pagesize);
+            $addPath .= "?keyword=$keyword&pagesize=$pagesize";
+        }
+
+        return view('admin.pages.post.list', compact('post', 'keyword'));
     }
 
     /**
@@ -47,7 +66,7 @@ class PostController extends Controller
 
              return view('admin.pages.post.add', compact('categories'));
         } 
-        return 'k duoc quyen';
+        return view('err.403');
         
     }
 
@@ -101,9 +120,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->can('posts.update')) {
+
             $post = Post::with('category')->findOrFail($id);
             $cate = Category::orderBy('name', 'ASC')->get();
             return view('admin.pages.post.edit', compact('post', 'cate'));
+        }
+
+        return view('err.403');
 
     }
 
@@ -141,6 +165,8 @@ class PostController extends Controller
 
             return redirect(route('post.index'))->with('success' , 'Edit Posts Successfully');
         }
+
+        return view('err.403');
     }
 
     /**
@@ -160,5 +186,7 @@ class PostController extends Controller
             } 
             return response(['error' => 'Delete fail']);
         }
+
+        return view('err.403');
     }
 }

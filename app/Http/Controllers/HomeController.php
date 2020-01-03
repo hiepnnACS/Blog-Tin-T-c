@@ -7,20 +7,45 @@ use App\Http\Requests\CommentRequest;
 use App\Post;
 use App\Category;
 use App\Comment;
+use App\User;
 use Auth;
+use Socialite;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    
+    public function redirectProvider()
     {
-        $this->middleware('auth')->except(['index', 'detailPost', 'listPostCategory']);
+        return Socialite::driver('facebook')->redirect();
     }
 
+    public function handelProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        $authUser = $this->findOrCreateUser($user);
+        Auth::login($authUser);
+        return redirect('/home');
+    }
+
+    /**
+     * nếu chưa tồn tại tài khoản thì tạo mới
+     */
+    private function findOrCreateUser($user)
+    {
+        $authUser = User::where('social_id', $user->id)->first();
+        if($authUser) {
+            return $authUser;
+        } else {
+            return User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => '',
+                'social_id' => $user->id,
+                'status' => 0,
+            ]);
+        }
+    }
     /**
      * Show the application dashboard.
      *
@@ -28,11 +53,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data_product = Post::latest()->with('category', 'user')
+        $data_posts = Post::latest()->with('category', 'user')
                         ->where('status', 1)
                         ->paginate(10);
+
+        $highlight_post = Post::where('status', 1)
+                         ->orderBy('views', 'DESC')
+                         ->with('category', 'user')
+                         ->limit(3)
+                         ->get();
         
-        return view('home', compact('data_product'));
+        return view('home', compact('data_posts', 'highlight_post'));
     }
 
     /**

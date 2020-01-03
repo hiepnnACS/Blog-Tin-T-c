@@ -6,8 +6,6 @@ use App\Category;
 
 class ViewComposer {
 
-  protected $data_cate;
-
   /**
    * Create a new ViewComposer instance.
    */
@@ -15,6 +13,7 @@ class ViewComposer {
   {
     $this->category = Category::orderBy('name', 'ASC')
                               ->where('is_menu' , 1)
+                              ->with('childrenCategory')
                               ->get();
   }
 

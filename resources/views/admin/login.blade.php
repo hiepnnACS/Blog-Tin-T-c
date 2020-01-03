@@ -37,6 +37,11 @@
     
     <form action="{{ route('admin.login') }}" method="post">
     @csrf
+    @if (count($errors) > 0)
+      @foreach ($errors->all() as $error)
+        <p class="alert alert-danger">{{ $error }}</p>
+      @endforeach
+    @endif
       <div class="form-group has-feedback">
         <input type="email" class="form-control" name="email" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

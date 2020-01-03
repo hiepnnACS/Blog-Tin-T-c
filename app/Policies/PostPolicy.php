@@ -11,29 +11,6 @@ class PostPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any posts.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the post.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Post  $post
-     * @return mixed
-     */
-    public function view(User $user, Post $post)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create posts.
      *
      * @param  \App\User  $user
@@ -90,6 +67,81 @@ class PostPolicy
             foreach($user_role->permissions as $permission) {
 
                 if($permission->id == 4) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function publish(Admin $user)
+    {
+        foreach ($user->roles as $user_role) {
+
+            foreach($user_role->permissions as $permission) {
+
+                if($permission->id == 9) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function categoryCRUD(Admin $user) 
+    {
+        foreach ($user->roles as $user_role) {
+
+            foreach($user_role->permissions as $permission) {
+
+                if($permission->id == 8) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function userCRUD(Admin $user)
+    {
+        foreach ($user->roles as $user_role) {
+
+            foreach($user_role->permissions as $permission) {
+
+                if($permission->id == 10) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function permissionCRUD(Admin $user)
+    {
+        foreach ($user->roles as $user_role) {
+
+            foreach($user_role->permissions as $permission) {
+
+                if($permission->id == 17) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function roleCRUD(Admin $user)
+    {
+        foreach ($user->roles as $user_role) {
+
+            foreach($user_role->permissions as $permission) {
+
+                if($permission->id == 12) {
 
                     return true;
                 }

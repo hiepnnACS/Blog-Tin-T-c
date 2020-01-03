@@ -14,6 +14,8 @@
       <form role="form" action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
           @csrf
         <div class="card-body">
+          
+          @can('posts.publish', Auth::user())
           <div class="form-group">
             <label for="exampleInputEmail1">Show Post</label>
             <input type="checkbox" name="status" value="1">
@@ -21,6 +23,8 @@
             @error('content')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+          @endcan
+
           <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
             <input value="{{ old('title') }}" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter...">

@@ -24,7 +24,7 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:50|min:2|unique:permissions,name',
+            'permission' => 'required|max:50|min:2|unique:permissions,name,'.$this->idPermission,
             'for' => 'required'
         ];
     }
